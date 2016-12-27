@@ -10,7 +10,11 @@ public class MiniJavaCheck {
 		MiniJavaParser parser = new MiniJavaParser(tokens);
 		ParseTree tree = parser.goal();
 		ParseTreeWalker walker = new ParseTreeWalker();
-		walker.walk(new MiniJavaWalker(), tree);
+		walker.walk(new MiniJavaWalkerDefine(), tree);
+	}
+	
+	public static void printError(Token token, String errorMessage) {
+		System.err.printf("line %d:%d %s\n", token.getLine(), token.getCharPositionInLine(), errorMessage);
 	}
 
 }
