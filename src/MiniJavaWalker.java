@@ -6,8 +6,7 @@ public class MiniJavaWalker extends MiniJavaBaseListener {
 
 	@Override
 	public void enterGoal(MiniJavaParser.GoalContext ctx) {
-		
-
+		System.out.println("123");
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 grammar MiniJava;		
 
-goal				:	mainClass ( classDeclaration )* EOF;
+goal				:	mainClass classDeclaration+ EOF;
 mainClass			:	'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
 classDeclaration	:	'class' Identifier ( 'extends' Identifier )? '{' ( varDeclaration )* ( methodDeclaration )* '}';
 varDeclaration		:	type Identifier ';';
@@ -30,8 +30,11 @@ expression			:	expression ( '&&' | '<' | '+' | '-' | '*' ) expression
 					|	'new' Identifier '(' ')'
 					|	'!' expression
 					|	'(' expression ')'
+					|	Letter+
 					;
-Identifier			:	Letter+(Letter* Digit*)*;
-Letter				:	([a-z] | [A-Z]);
+Identifier			:	Letter+(Letter | Digit | '_')*;
+Letter				:	[a-zA-Z];
 Digit 				:	[0-9];
-WS				    :	[ \r\t\n]+	->	skip ;
+WS				    :	[ \r\t\n]+ -> skip ;
+COMMENT_BLOCK		:	'/*' .*? '*/' -> skip;
+COMMENT_LINE		:	'//' .*? '\r'? '\n' -> skip;
