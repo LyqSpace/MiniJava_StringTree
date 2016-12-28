@@ -156,6 +156,7 @@ public class MiniJavaParser extends Parser {
 	}
 
 	public static class MainClassContext extends ParserRuleContext {
+		public Token name;
 		public List<TerminalNode> Identifier() { return getTokens(MiniJavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(MiniJavaParser.Identifier, i);
@@ -186,7 +187,7 @@ public class MiniJavaParser extends Parser {
 			setState(24);
 			match(T__0);
 			setState(25);
-			match(Identifier);
+			((MainClassContext)_localctx).name = match(Identifier);
 			setState(26);
 			match(T__1);
 			setState(27);
@@ -231,6 +232,8 @@ public class MiniJavaParser extends Parser {
 	}
 
 	public static class ClassDeclarationContext extends ParserRuleContext {
+		public Token name;
+		public Token extendName;
 		public List<TerminalNode> Identifier() { return getTokens(MiniJavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(MiniJavaParser.Identifier, i);
@@ -271,7 +274,7 @@ public class MiniJavaParser extends Parser {
 			setState(42);
 			match(T__0);
 			setState(43);
-			match(Identifier);
+			((ClassDeclarationContext)_localctx).name = match(Identifier);
 			setState(46);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -280,7 +283,7 @@ public class MiniJavaParser extends Parser {
 				setState(44);
 				match(T__12);
 				setState(45);
-				match(Identifier);
+				((ClassDeclarationContext)_localctx).extendName = match(Identifier);
 				}
 			}
 
@@ -374,6 +377,11 @@ public class MiniJavaParser extends Parser {
 	}
 
 	public static class MethodDeclarationContext extends ParserRuleContext {
+		public TypeContext returnType;
+		public Token name;
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
 		public List<TypeContext> type() {
 			return getRuleContexts(TypeContext.class);
 		}
@@ -383,9 +391,6 @@ public class MiniJavaParser extends Parser {
 		public List<TerminalNode> Identifier() { return getTokens(MiniJavaParser.Identifier); }
 		public TerminalNode Identifier(int i) {
 			return getToken(MiniJavaParser.Identifier, i);
-		}
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
 		}
 		public List<VarDeclarationContext> varDeclaration() {
 			return getRuleContexts(VarDeclarationContext.class);
@@ -424,9 +429,9 @@ public class MiniJavaParser extends Parser {
 			setState(67);
 			match(T__2);
 			setState(68);
-			type();
+			((MethodDeclarationContext)_localctx).returnType = type();
 			setState(69);
-			match(Identifier);
+			((MethodDeclarationContext)_localctx).name = match(Identifier);
 			setState(70);
 			match(T__6);
 			setState(82);

@@ -1,10 +1,10 @@
 grammar MiniJava;		
 
 goal				:	mainClass classDeclaration+ EOF;
-mainClass			:	'class' Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
-classDeclaration	:	'class' Identifier ( 'extends' Identifier )? '{' ( varDeclaration )* ( methodDeclaration )* '}';
+mainClass			:	'class' name=Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
+classDeclaration	:	'class' name=Identifier ( 'extends' extendName=Identifier )? '{' ( varDeclaration )* ( methodDeclaration )* '}';
 varDeclaration		:	type Identifier ';';
-methodDeclaration	:	'public' type Identifier '(' ( type Identifier ( ',' type Identifier )* )? ')' '{' ( varDeclaration )* ( statement )* 'return' expression ';' '}';
+methodDeclaration	:	'public' returnType=type name=Identifier '(' ( type Identifier ( ',' type Identifier )* )? ')' '{' ( varDeclaration )* ( statement )* 'return' expression ';' '}';
 type				:	'int' '[' ']'
 					|	'boolean'
 					|	'int'

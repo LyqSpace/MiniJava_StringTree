@@ -11,6 +11,9 @@ public class MiniJavaCheck {
 		ParseTree tree = parser.goal();
 		ParseTreeWalker walker = new ParseTreeWalker();
 		walker.walk(new MiniJavaWalkerDefine(), tree);
+		
+		org.antlr.v4.gui.Trees.inspect(tree, parser);
+		
 	}
 	
 	public static void printError(Token token, String errorMessage) {
