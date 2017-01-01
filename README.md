@@ -26,7 +26,7 @@
 	
 	即可生成 `MiniJavaLexer.java`、`MiniJavaParser.java`、`MiniJavaListener.java` 和 `MiniJavaBaseListener.java`
 
-	![](imgs\gen.png)
+	![](imgs/gen.png)
 
 ### Eclipse
 - 本代码通过Eclipse建立，并在上面通过测试，**推荐使用通过Eclipse导入本工程**
