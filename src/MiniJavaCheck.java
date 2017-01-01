@@ -5,6 +5,8 @@ public class MiniJavaCheck {
 
 	public static void main(String[] args) throws Exception {
 
+		System.out.printf("Start analyzing %s\n", args[0]);
+		
 		MiniJavaLexer lexer = new MiniJavaLexer(new ANTLRFileStream(args[0]));
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		MiniJavaParser parser = new MiniJavaParser(tokens);

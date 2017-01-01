@@ -17,7 +17,15 @@ public class ClassDefine {
 		variables.put(name, type);
 	}
 	
-	public void addMethod(MethodDefine type, String name) {
-		methods.put(name, type);
+	public void addMethod(MethodDefine methodObject) {
+		methods.put(methodObject.methodName, methodObject);
+	}
+	
+	public boolean containMethod(String methodName) {
+		return methods.containsKey(methodName);
+	}
+	
+	public boolean containVariable(String variableName) {
+		return variables.containsKey(variableName);
 	}
 }

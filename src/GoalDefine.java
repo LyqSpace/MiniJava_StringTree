@@ -10,7 +10,12 @@ public class GoalDefine {
 		classes = new TreeMap<String, ClassDefine>();
 	}
 
-	public void addClass(ClassDefine type, String name) {
-		classes.put(name, type);
+	public void addClass(ClassDefine classObject) {
+		classes.put(classObject.className, classObject);
 	}
+	
+	public boolean containClass(String className) {
+		return classes.containsKey(className);
+	}
+	
 }

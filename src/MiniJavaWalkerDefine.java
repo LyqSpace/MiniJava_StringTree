@@ -1,14 +1,15 @@
 
-
 public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 
-	public GoalDefine goalDefine;
-	public ClassDefine currentClass;
-	public MethodDefine MethodDefine;
+	GoalDefine goalDefine;
+	ClassDefine currentClass;
+	MethodDefine currentMethod;
+	String location;
 	
 	@Override
 	public void enterGoal(MiniJavaParser.GoalContext ctx) {
-		goalDefine = new GoalDefine();		
+		goalDefine = new GoalDefine();
+		location = "Goal";
 	}
 
 	@Override
@@ -17,10 +18,13 @@ public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 
 	@Override
 	public void enterMainClass(MiniJavaParser.MainClassContext ctx) {
+		location = "MainClass";
 	}
 
 	@Override
 	public void exitMainClass(MiniJavaParser.MainClassContext ctx) {
+		ClassExtendLoop.check();
+		location = "Goal";
 	}
 
 	@Override
@@ -30,120 +34,71 @@ public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 		if (ctx.extendName != null) {
 			currentClass.paraentClassName = ctx.extendName.getText();
 		}
-		goalDefine.addClass(type, currentClass);
+		if (goalDefine.containClass(currentClass.className)) {
+			String errorMessage = "Class " + currentClass.className + " has existed!";
+			MiniJavaCheck.printError(ctx.name, errorMessage);
+		} else {
+			goalDefine.addClass(currentClass);
+		}
+		location = "Class";
 	}
 	
 	@Override
 	public void exitClassDeclaration(MiniJavaParser.ClassDeclarationContext ctx) {
+		currentClass = null;
+		location = "Goal";
 	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
+	
 	@Override
 	public void enterVarDeclaration(MiniJavaParser.VarDeclarationContext ctx) {
+		String variableType = ctx.type.getText();
+		String variableName = ctx.name.getText();
+		if (location == "Class") { // Class
+			if (currentClass.containVariable(variableName)) {
+				String errorMessage = "Variable " + variableName + " has existed!";
+				MiniJavaCheck.printError(ctx.name, errorMessage);
+			} else {
+				currentClass.addVariable(variableType, variableName);
+			}
+		} else { // Method
+			if (currentMethod.containVariable(variableName)) {
+				String errorMessage = "Variable " + variableName + " has existed!";
+				MiniJavaCheck.printError(ctx.name, errorMessage);
+			} else {
+				currentMethod.addVariable(variableType, variableName);
+			}
+		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void exitVarDeclaration(MiniJavaParser.VarDeclarationContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
 	@Override
 	public void enterMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) {
+		currentMethod = new MethodDefine();
+		currentMethod.methodName = ctx.name.getText();
+		if (currentClass.containMethod(currentMethod.methodName)) {
+			String errorMessage = "Method " + currentMethod.methodName + " has existed!";
+			MiniJavaCheck.printError(ctx.name, errorMessage);
+		} else {
+			currentClass.addMethod(currentMethod);
+		}
+		location = "Method";
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
 	@Override
 	public void exitMethodDeclaration(MiniJavaParser.MethodDeclarationContext ctx) {
+		currentMethod = null;
+		location = "Class";
+	}
+	
+	@Override
+	public void enterParameterList(MiniJavaParser.ParameterListContext ctx) {
+		String parameterName = ctx.name.getText();
+		String parameterType = ctx.type.getText();
+		if (currentMethod.containParameter(parameterName)) {
+			String errorMessage = "Parameter " + parameterName + " has existed!";
+			MiniJavaCheck.printError(ctx.name, errorMessage);
+		} else {
+			currentMethod.addParameter(parameterType, parameterName);
+		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void enterType(MiniJavaParser.TypeContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void exitType(MiniJavaParser.TypeContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void enterStatement(MiniJavaParser.StatementContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void exitStatement(MiniJavaParser.StatementContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void enterExpression(MiniJavaParser.ExpressionContext ctx) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>
-	 * The default implementation does nothing.
-	 * </p>
-	 */
-	@Override
-	public void exitExpression(MiniJavaParser.ExpressionContext ctx) {
-	}
 }

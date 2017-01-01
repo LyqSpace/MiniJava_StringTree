@@ -3,12 +3,15 @@ grammar MiniJava;
 goal				:	mainClass classDeclaration+ EOF;
 mainClass			:	'class' name=Identifier '{' 'public' 'static' 'void' 'main' '(' 'String' '[' ']' Identifier ')' '{' statement '}' '}';
 classDeclaration	:	'class' name=Identifier ( 'extends' extendName=Identifier )? '{' ( varDeclaration )* ( methodDeclaration )* '}';
-varDeclaration		:	type Identifier ';';
-methodDeclaration	:	'public' returnType=type name=Identifier '(' ( type Identifier ( ',' type Identifier )* )? ')' '{' ( varDeclaration )* ( statement )* 'return' expression ';' '}';
-type				:	'int' '[' ']'
+varDeclaration		:	type=typeDeclaration name=Identifier ';';
+methodDeclaration	:	'public' typeDeclaration name=Identifier '(' parameterList? ')' '{' ( varDeclaration )* ( statement )* 'return' expression ';' '}';
+typeDeclaration		:	'int' '[' ']'
 					|	'boolean'
 					|	'int'
 					|	Identifier
+					;
+parameterList		:	type=typeDeclaration name=Identifier
+					|	type=typeDeclaration name=Identifier ',' parameterList
 					;
 statement			:	'{' ( statement )* '}'
 					|	'if' '(' expression ')' statement 'else' statement
