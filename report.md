@@ -37,7 +37,7 @@
 
 ANTLR是一款成熟的语言识别工具（Another Tool for Language Recognition），使用上下文无关文法描述语言，通过解析用户自定义的文法结构，自动生成词法分析器（Lexer）、语法分析器（Parser）和树分析器（Tree Parser）
 
-![overview](imgs\overview.png)
+![overview](imgs/overview.png)
 
 流程如图所示，把源文件转换成 AST，需要 grammer 定义文件 MiniJava.g4，然后用生成的 Lexer 把源文件读入，分成 token 序列，然后 Parser 读入 Lexer 产生的 tokens 生成 AST。在 ANTLR 提供了 Lisenter 和 Visitor 两种方式来遍历抽象语法树，本项目基于 Listener 接口来实现对源文件的检查
 
@@ -214,7 +214,7 @@ MiniJavaWalkerDefine.java
 
 	错误检测结果
 
-	![Result_BracketsUnmatched](imgs\Result_BracketsUnmatched.png)
+	![Result_BracketsUnmatched](imgs/Result_BracketsUnmatched.png)
 
 2. 重复定义检测
 
@@ -246,7 +246,7 @@ MiniJavaWalkerDefine.java
 
 	错误检测结果
 
-	![Result_MultipleDefinition](imgs\Result_MultipleDefinition.png)
+	![Result_MultipleDefinition](imgs/Result_MultipleDefinition.png)
 
 3. 类继承环路检测
 
@@ -269,7 +269,7 @@ MiniJavaWalkerDefine.java
 
 	错误检测结果
 
-	![Result_LoopDetection](imgs\Result_LoopDetection.png)
+	![Result_LoopDetection](imgs/Result_LoopDetection.png)
 
 ## 七、项目体会与感想
 - 学习了 ANTLR 这种强有力的工具进行语法前端分析，节省了很多工作量
