@@ -380,13 +380,12 @@ public class MiniJavaParser extends Parser {
 	}
 
 	public static class MethodDeclarationContext extends ParserRuleContext {
-		public TypeDeclarationContext returnType;
 		public Token name;
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
 		public TypeDeclarationContext typeDeclaration() {
 			return getRuleContext(TypeDeclarationContext.class,0);
+		}
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
 		public TerminalNode Identifier() { return getToken(MiniJavaParser.Identifier, 0); }
 		public ParameterListContext parameterList() {
@@ -429,7 +428,7 @@ public class MiniJavaParser extends Parser {
 			setState(69);
 			match(T__2);
 			setState(70);
-			((MethodDeclarationContext)_localctx).returnType = typeDeclaration();
+			typeDeclaration();
 			setState(71);
 			((MethodDeclarationContext)_localctx).name = match(Identifier);
 			setState(72);
