@@ -1,4 +1,4 @@
-class Example1 {
+class LoopDetection {
     public static void main(String[] args) {
     	System.out.println(new ClassC());
     }

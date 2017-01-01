@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileWriter;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -13,6 +15,15 @@ public class MiniJavaCheck {
 		ParseTree tree = parser.goal();
 		ParseTreeWalker walker = new ParseTreeWalker();
 		walker.walk(new MiniJavaWalkerDefine(), tree);
+		
+		System.out.println(tree.toStringTree(parser));
+		
+		String outputFileName = args[0].replaceAll("java", "txt");
+		outputFileName = outputFileName.replaceAll("test_codes", "results");
+		File file = new File(outputFileName);
+		FileWriter fileWriteer = new FileWriter(file);
+		fileWriteer.write(tree.toStringTree(parser));
+		fileWriteer.close();
 		
 		org.antlr.v4.gui.Trees.inspect(tree, parser);
 		

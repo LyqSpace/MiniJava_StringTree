@@ -1,0 +1,1 @@
+(goal (mainClass class LoopDetection { public static void main ( String [ ] args ) { (statement System.out.println ( (expression new ClassC ( )) ) ;) } }) (classDeclaration class ClassA extends ClassC { }) (classDeclaration class ClassB extends ClassA { }) (classDeclaration class ClassC extends ClassB { }) <EOF>)

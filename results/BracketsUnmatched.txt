@@ -1,0 +1,1 @@
+(goal (mainClass class BracketsUnmatched { public static void main ( String [ ] args ) { (statement System.out.println ( (expression new ClassC ( )) ) ;) } }) (classDeclaration class classA { (varDeclaration (typeDeclaration int [ <missing ']'>) a ;) (methodDeclaration public (typeDeclaration int) sum ( ) { return (expression 1) ; }) <missing '}'>) <EOF>)
