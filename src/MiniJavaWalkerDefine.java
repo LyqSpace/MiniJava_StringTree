@@ -1,19 +1,20 @@
 
 public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 
-	GoalDefine goalDefine;
+	GoalDefine goal;
 	ClassDefine currentClass;
 	MethodDefine currentMethod;
 	String location;
 	
 	@Override
 	public void enterGoal(MiniJavaParser.GoalContext ctx) {
-		goalDefine = new GoalDefine();
+		goal = new GoalDefine();
 		location = "Goal";
 	}
 
 	@Override
 	public void exitGoal(MiniJavaParser.GoalContext ctx) {
+		ClassExtendLoop.check(goal);
 	}
 
 	@Override
@@ -23,7 +24,6 @@ public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 
 	@Override
 	public void exitMainClass(MiniJavaParser.MainClassContext ctx) {
-		ClassExtendLoop.check();
 		location = "Goal";
 	}
 
@@ -34,11 +34,11 @@ public class MiniJavaWalkerDefine extends MiniJavaBaseListener {
 		if (ctx.extendName != null) {
 			currentClass.paraentClassName = ctx.extendName.getText();
 		}
-		if (goalDefine.containClass(currentClass.className)) {
+		if (goal.containClass(currentClass.className)) {
 			String errorMessage = "Class " + currentClass.className + " has existed!";
 			MiniJavaCheck.printError(ctx.name, errorMessage);
 		} else {
-			goalDefine.addClass(currentClass);
+			goal.addClass(currentClass);
 		}
 		location = "Class";
 	}

@@ -19,7 +19,12 @@ public class MiniJavaCheck {
 	}
 	
 	public static void printError(Token token, String errorMessage) {
-		System.err.printf("line %d:%d %s\n", token.getLine(), token.getCharPositionInLine(), errorMessage);
+		if (token == null) {
+			System.err.printf("%s\n", errorMessage);
+		} else {
+			System.err.printf("line %d:%d %s\n", token.getLine(), token.getCharPositionInLine(), errorMessage);
+		}
+		
 	}
 
 }

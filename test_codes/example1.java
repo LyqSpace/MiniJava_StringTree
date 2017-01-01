@@ -1,13 +1,14 @@
 class Example1 {
     public static void main(String[] args) {
-        args = 1;
+    	System.out.println(new ClassC());
     }
 } // main
 
-class Temp {
-    public int foo(int ap, boolean ap) {
-    	int b;
-        int b;
-        return 123;
-    }
+class ClassA extends ClassC {
+}
+
+class ClassB extends ClassA {
+}
+
+class ClassC extends ClassB {
 }
